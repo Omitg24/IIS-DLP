@@ -1,0 +1,3 @@
+Implementar la pasada de comprobación de tipos de la fase de análisis semántico.
+Decorar el AST con la información de tipos.
+Detectar los errores de los 5 programas de prueba.

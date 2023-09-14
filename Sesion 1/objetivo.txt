@@ -1,0 +1,2 @@
+Diseñar un mediante UML un AST para el lenguaje descrito en descripcion.txt. 
+Se dispone de un ejemplo de programa input.txt. 

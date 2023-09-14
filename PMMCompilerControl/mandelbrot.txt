@@ -1,0 +1,126 @@
+"""
+Computes the mandelbrot set in a grid, and then
+represents it using ASCII characters
+
+The mandelbrot set is defined as follows:
+The set of all complex numbers c that when applied the formula:
+    z_n = z_(n-1)^2 + c
+Starting with z_0 = 0 remain bounded (do not go towards infinity)
+
+As any number z such that |z| >= 2 will go infinite, the program
+only shows the region of numbers z such that |z| < 2
+The program shows numbers that, while unbounded, take a while to
+have a |z| >= 2 with different characters
+"""
+
+matrix: [20][20]int;
+
+def numToChar(n: double): char {
+    if n < .1: return ' ';
+    if n < .2: return '·';
+    if n < .3: return '*';
+    if n < .4: return '~';
+    if n < .5: return ':';
+    if n < .6: return 'o';
+    if n < .7: return '0';
+    if n < .8: return 'D';
+    if n < .9: return '%';
+    return '#';
+}
+
+def show(): {
+    i, j: int;
+    i = 0;
+
+    while i < 20: {
+        j = 0;
+        while j < 20: {
+            print numToChar((double) matrix[i][j] / 25.);
+            j = j + 1;
+        }
+        print '\n';
+
+        i = i + 1;
+    }
+}
+
+def abs(n: double): double {
+    if n > 0.: return n;
+    return -n;
+}
+
+def sqrt(n: double): double {
+    x, min, max: double;
+    e: double;
+    max_iters, iters: int;
+    min = 0.;
+    max = n;
+
+    e = .01;
+    max_iters = 6;
+
+    x = n / 2.;
+    iters = 0;
+    while abs(x * x - n) > e && iters < max_iters: {
+        if x * x > n: max = x;
+        if x * x < n: min = x;
+
+        x = (max + min) / 2.;
+
+        iters = iters + 1;
+    }
+
+    return x;
+}
+
+def module(x: double, y: double): double {
+    return sqrt(x * x + y * y);
+}
+
+def iters(x: double, y: double): int {
+    z: struct { x: double; y: double; };
+    i, max_iters: int;
+    i = 0; max_iters = 25;
+    z.x = 0.; z.y = 0.;
+
+    while module(z.x, z.y) < 2. && i < max_iters: {
+        z.x = z.x * z.x - z.y * z.y + x;
+        z.y = 2. * z.x * z.y + y;
+
+        i = i + 1;
+    }
+
+    return i;
+}
+
+def map(min_range: double, max_range: double, min_input: int, max_input: int, n: int): double {
+    t: double;
+
+    t = (double) (n - min_input) / (double) (max_input - min_input);
+    return min_range + (max_range - min_range) * t;
+}
+
+def main(): {
+   minX, minY, maxX, maxY: double;
+   minM, maxM: int;
+   i, j: int;
+
+   minX = -2.; minY = -2.; maxX = 2.; maxY = 2.;
+   minM = 0; maxM = 20;
+
+   i = minM;
+   while i < maxM: {
+        j = minM;
+        while j < maxM: {
+            matrix[i][j] = iters(
+                map(minX, maxX, minM, maxM, j),
+                map(minY, maxY, minM, maxM, i)
+            );
+
+            j = j + 1;
+        }
+        i = i + 1;
+   }
+
+   show();
+}

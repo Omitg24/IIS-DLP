@@ -1,0 +1,41 @@
+"""
+Computes the square root of a number
+Uses an optimized approach via iterative approximation
+"""
+
+def abs(n: double): double {
+    if n > 0.: return n;
+    return -n;
+}
+
+def sqrt(n: double): double {
+    x, min, max: double;
+    e: double;
+    max_iters, iters: int;
+    min = 0.;
+    max = n;
+
+    e = .001;
+    max_iters = 10;
+
+    x = n / 2.;
+    iters = 0;
+    while abs(x * x - n) > e && iters < max_iters: {
+        if x * x > n: max = x;
+        if x * x < n: min = x;
+
+        x = (max + min) / 2.;
+
+        iters = iters + 1;
+    }
+
+    return x;
+}
+
+def main(): {
+	n: double;
+
+	print 'n', ' ', '=', ' ';
+	input n;
+	print sqrt(n);
+}

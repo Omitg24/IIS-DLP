@@ -1,0 +1,166 @@
+Plantillas de Código:
+
+    /* Executes */
+
+    execute[[Program: program -> definition*]]() =
+        for (Definition definition : definition*) {
+            if (definition instanceof VariableDefinition) {
+                execute[[definition]]()
+            }
+        }
+        <call main>
+        <halt>
+        for (Definition definition : definition*) {
+            if (definition instanceof FunctionDefinition) {
+                execute[[definition]]()
+            }
+        }
+
+    execute[[FunctionDefinition: definition -> ID type variabledefinition* statement*]]() =
+        ID:
+        ' * Parameters:
+        execute[[type]]()
+        ' * Local variables:
+        variabledefinition*.forEach(varDef -> execute[[varDef]]())
+        definition.bytesLocals = variabledefinition*.isEmpty() ? 0 : -1 * variabledefinition*.get(variabledefinition*.size() - 1).offset
+        <enter> definition.bytesLocals
+        definition.type.bytesParams = varDefinitions.stream().mapToInt(varDef -> varDef.getType().numberOfBytes()).sum();
+        definition.type.bytesReturns = type.returnType.numberOfBytes();
+        statement*.forEach(stmnt -> execute[[stmnt]](functionDefinition))
+        if (definition.bytesReturn === 0) {
+            <ret> definition.getBytesReturn(), definition.getBytesLocals(), definition.type.getBytesParams()
+        }
+
+    execute[[VariableDefinition: definition -> ID type]]() =
+        ' * type.toString() ID (offset definition.offset)
+
+    execute[[FunctionType: type -> variabledefinition* type]]() =
+        variabledefinition*.forEach(varDef -> execute[[varDef]]())
+
+    execute[[Assignment: statement -> expression1 expression2]]() =
+        address[[expression1]]()
+        value[[expression2]]()
+        <store> expression1.type.suffix()
+
+    execute[[FunctionInvocation: statement -> expression1 expression2*]]() =
+        value[[(Expression) statement]]()
+        if (!((Expression) statement).type instanceof VoidType) {
+            <pop> ((Expression) statement).type.suffix()
+        }
+
+    execute[[IfElse: statement1 -> expression statement2* statement3*]]() =
+        int elseBody = cg.getLabel();
+        int end = cg.getLabel();
+        value[[expression]]()
+        <jz> elseBody
+        statement2*.forEach(stmnt -> execute[[stmnt]])
+        <jmp> end
+        <label> elseBody <:>
+        statement3*.forEach(stmnt -> execute[[stmnt]])
+        <label> end <:>
+
+    execute[[Print: statement -> expression]]() =
+        value[[expression]]()
+        <out> expression.type.suffix()
+
+    execute[[Input: statement -> expression]]() =
+        address[[expression]]()
+        <in> expression.type.suffix()
+        <store> expression.type.suffix()
+
+    execute[[Return: statement -> expression]](Definition functionDefinition) =
+        value[[expression]]()
+        <ret> ((FunctionType) functionDefinition.type).getBytesReturn(),
+              functionDefinition.getBytesLocals(),
+              ((FunctionType) functionDefinition.type).getBytesReturn()
+
+    execute[[While: statement1 -> expression statement2*]]() =
+        int condition = cg.getLabel();
+        int end = cg.getLabel();
+        <label> condition <:>
+        value[[expression]]()
+        <jz> end
+        statement2*.forEach(stmnt -> execute[[stmnt]])
+        <jmp label> condition
+        <label> end <:>
+
+    /* Addresses */
+
+    address[[ArrayAccess: expression1 -> expression2 expression2]]() =
+        address[[expression2]]
+        value[[expression3]]
+        <pushi> expression1.type.numberOfBytes
+        <muli>
+        <addi>
+
+    address[[StructAccess: expression1 -> expression2 ID]]() =
+        address[[expression2]]
+        <pushi> expression2.type.getField(expression1.getName()).getOffset()
+        <addi>
+
+    address[[Variable: expression -> ID]]() =
+        if (expression.definition.scope==0) {
+            <pusha> expression.definition.offset
+        } else {
+            <push bp>
+            <pushi> expression.definition.offset
+            <addi>
+        }
+
+    /* Values */
+    value[[Arithmetic: expression1 -> expression2 (+|-|*|/|%) expression3]]() =
+        value[[expression2]]()
+        cg.convertTo(expression2.type, expression1.type)
+        value[[expression3]]()
+        cg.convertTo(expression3.type, expression1.type)
+        cg.arithmetic(expression1.operator, expression1.type)
+
+    value[[ArrayAccess: expression1 -> expression2 expression3]]() =
+        address[[expression1]]
+        <load> expression1.type.suffix()
+
+    value[[Cast: expression1-> type expression2]]() =
+        value[[expression2]]
+        cg.convertTo(expression2.type, type);
+
+    value[[CharLiteral: expression -> CHAR_CONSTANT]]() =
+        <pushb> CHAR_CONSTANT
+
+    value[[Comparison: expression1 -> expression2 (==|!=|>=|<=|>|<) expression3]]() =
+        value[[expression2]]()
+        value[[expression3]]()
+        cg.comparison(expression1.operator, expression1.type)
+
+    value[[FunctionInvocation: expression1 -> expression2 expression3*]]() =
+        expression3*.forEach(exp -> value[[exp]]())
+        <call> expression2.name
+
+    value[[IntLiteral: expression -> INT_CONSTANT]]() =
+        <pushi> INT_CONSTANT
+
+    value[[Logical: expression1 -> expression2 (&&|||) expression3]]() =
+        value[[expression2]]()
+        value[[expression3]]()
+        cg.logical(expression1.operator)
+
+    value[[RealLiteral: expression -> REAL_CONSTANT]]() =
+        <pushf> REAL_CONSTANT
+
+    value[[StructAccess: expression1 -> expression2 ID]]() =
+        address[[expression1]]
+        <load> expression1.type.suffix()
+
+    value[[UnaryMinus: expression1 -> expression2]]() =
+        value[[expression2]]()
+        cg.convertTo(expression2.type, expression1.type)
+        <pushi> -1
+        cg.convertTo(IntType, expression1.type)
+        <mul> expression1.type.suffix()
+
+    value[[UnaryNot: expression1 -> expression2]]() =
+        value[[expression2]]()
+        cg.logical(expression1.operator)
+
+    value[[Variable: expression -> ID]]() =
+        address[[ID]]()
+        <load> expression.type.suffix()

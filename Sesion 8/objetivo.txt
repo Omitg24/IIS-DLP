@@ -1,0 +1,6 @@
+Implementar la fase de identificacion la la fase de analisis semantico.
+Completar la Tabla de Simbolos (SymbolTable.java) verificar su funcionamiento mediante SymbolTableTest.java. 
+Completar la fase de identificacion mediante el patron visitor.
+Verificar que la implmenetacion es correcto mediante input.txt y el introspector. 
+Finalmente, verificar que se detectan los 4 arrores del programa wrong.input.txt.
+

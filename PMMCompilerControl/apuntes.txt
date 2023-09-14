@@ -1,0 +1,16 @@
+Sesión 4
+========
+
+    G = {Vt,Vnt,S,P}
+
+    Vt -> TOKENS + KEYWORDS
+    Vnt -> Identificadores de las reglas
+    S -> Primer no terminal
+    P -> Vt U Vnt
+
+    Es descendente, si no se quiere leer más que un carácter se debe indicar (EOF)
+
+Sesión 5
+========
+
+    Todas las reglas deben devolver algo (ya que, sino puede devolver null)

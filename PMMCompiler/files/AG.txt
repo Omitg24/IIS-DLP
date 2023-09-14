@@ -1,0 +1,46 @@
+GAR:
+    G:
+        (1): Arithmetic: expression1 -> expression2 (+ | - | * | / | %) expression3
+        (2): ArrayAccess: expression1 -> expression2 expression3
+        (3): Cast: expression1 -> type expression2
+        (4): CharLiteral: expression1 -> CHAR_CONSTANT
+        (5): Comparison: expression1 -> expression2 (> | < | >= | <= | == | !=) expression3
+        (6): FunctionInvocation: expression1 -> expression2 expression3*
+        (7): IntLiteral: expression1 -> INT_CONSTANT
+        (8): Logical: expression1 -> expression2 (&& | ||) expression3
+        (9): RealLiteral: expression1 -> REAL_CONSTANT
+        (10): StructAccess: expression1 -> expression2 ID
+        (11): UnaryMinus: expression1 -> expression2
+        (12): UnaryNot: expression1 -> expression2
+        (13): Variable: expression1 -> ID
+        (14): Assignment: statement1 -> expression1 expression2
+        (15): IfElse: statement1 -> expression1 statement2* statement3*
+        (16): Input: statement1 -> expression1
+        (17): Print: statement1 -> expression1
+        (18): Return: statement1 -> expression1
+        (19): While: statement1 -> expression1 statement2*
+        (20): FunctionDefinition: definition -> type ID definition* statement*
+    A:
+        { expression.type } Dominio Type
+
+    R:
+        (1): Arithmetic: expression1.type = expression2.type.arithmetic(expression3.type)
+        (2): ArrayAccess: expression1.type = expression2.type.squareBrackets(expression3.type)
+        (3): Cast: expression1.type = expression2.type.canBeCastTo(type)
+        (4): CharLiteral: expression1.type = CharType
+        (5): Comparison: expression1.type = expression2.type.comparison(exp3*.stream.map(expr => expr.type).toList))
+        (6): FunctionInvocation: expression1.type = expression2.type.parenthesis(expression3.type)
+        (7): IntLiteral: expression1.type = IntType
+        (8): Logical: expression1.type = expression2.type.logical(expression3.type)
+        (9): RealLiteral: expression1.type = RealType
+        (10): StructAccess: expression1.type = expression2.type.dot(ID)
+        (11): UnaryMinus: expression1.type = expression2.type.arithmetic()
+        (12): UnaryNot: expression1.type = expression2.type.logical()
+        (13): Variable: expression1.type = expression1.definition.type
+        (14): Assignment: expression2.type.MustPromotesTo(expression1.type)
+        (15): IfElse: expression1.type.MustAsLogical()
+        (16): Input: expression1.type.MustAsBuiltInType()
+        (17): Print: expression1.type.MustAsBuiltInType()
+        (18): Return: expression1.type.MustPromoteTo(statement.returnType)
+        (19): While: expression1.type.MustAsLogical()
+        (20): FunctionDefinition: foreach(statement => statement.returnType = type.returnType)

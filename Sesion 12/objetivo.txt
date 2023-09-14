@@ -1,0 +1,5 @@
+Generar codigo para:
+- Indexing
+- FieldAccess
+- While statements
+- If statements

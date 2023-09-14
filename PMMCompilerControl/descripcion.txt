@@ -1,0 +1,57 @@
+PROGRAMA
+========
+Un programa es una secuencia de definiciones. 
+Las definiciones pueden ser de variables o de funciones.
+
+DEFINICION DE VARIABLE
+======================
+La sintaxis de la definición de una variable es una lista, con al menos un elemento, de identificadores separados por comas seguido de ':' y un tipo. 
+Las definiciones de variables terminan mediante el caracter ';'
+
+DEFINICION DE FUNCION
+======================
+Las funciones se definen mediante la palabra reservada "def" el identificador de la función, una lista de parametros separados por comas entre '(' y ')' seguido de ':' y el tipo de retorno cuando sea necesario.
+El tipo de retorno y de los parámetros debe ser de tipo simple (no se permiten ni arrays ni registros). 
+El cuerpo de la funcion va entre '{' y '}'.
+El cuerpo de las funciones se compone de una secuencias de cero o mas definiciones de variables seguida de una secuencia de cero o mas sentencias. 
+En ambos casos terminan con el caracter ';'
+La funcion "main" no devuelve nada, no recibe parámetros y obligatoriamente debe estar declarada en último lugar.
+
+TIPOS
+=====
+Los tipos simples son "int", "double" y "char".
+Los arrays se pueden crear con el constructor de tipos "[]", especificando el tamaño con una constante entera (como en C) seguido de cualquier tipo.
+Se usa el constructor de tipos "struct" para la creacion de registros. 
+Los registros no tienen identificador, y los campos son declarados como variables dentro de '{' '}'. No se permite la definicion de tipos (p.e. typedef).
+
+SENTENCIAS
+==========
+Una escritura es la palabra reservada "print" seguida de una lista de una o mas expresiones separadas por comas.
+Una lectura es la palabra reservada "input" seguida de una lista de una o mas expresiones separadas por comas.
+Una asignación está compuesta por dos expresiones separadas por el operador '='.
+La sentencia condicional "if"-"else" y la sentencia iterativa "while" siguen la sintaxis del lenguaje Python (sin parentesis y con ':' despues de la condicion y despues de else).
+En ambos casos el cuerpo sigue la sintaxis de Java, las sentencias van entre '{' '}' y si solamente hay un sentencia pueden omitirse. 
+Se permite la sentencia 'return' <expresion> (la expresion es obligatoria).
+La invocación a una función sin retorno (se denomina procedimiento) será siempre una sentencia.
+
+EXPRESIONES
+===========
+La invocación a una función será una expresión cuando retorne un valor.
+La conversión explícita a tipos simples (cast) se realizará utilizando la sintaxis del lenguaje C. 
+Las expresiones están formadas por:
+- Constantes enteras, reales y caracter sin signo.
+- Identificadores
+- Los siguientes operadores aplicados a una o dos expresiones (por 
+orden de precedencia descendente):
+		( )			Non associative
+		[]			Non associative
+ 		.			Left associative
+        CAST     	Non associative
+		- (unary)	Non associative
+        !			Non associative
+		* / %		Left associative
+		+ -			Left associative
+	> >= < <= != ==	Left associative
+		&& ||		Left associative
+---------------------------------------
+		= 			Right associative

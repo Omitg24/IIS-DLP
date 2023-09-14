@@ -1,0 +1,11 @@
+Generate MAPL code for:
+- Programs
+- Input statements
+- Print statements
+- Literals
+- Variables
+- Assignments
+- Arithmetic, comparison and logical expressions
+- VarDefinitions (global / local)
+- FunDefinitions
+- Casts

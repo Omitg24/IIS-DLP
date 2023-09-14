@@ -1,0 +1,14 @@
+
+Elementos léxicos sensibles a mayúsculas/minúsculas.
+
+Elementos:
+
+  Comentarios con # hasta el final de línea
+  Comentarios con varias líneas (de """ hasta """)
+  Identificadores { letra o _ (letra|digito|_)* }
+  Constantes Enteras sin signo
+  Constantes Reales con punto decimal y formato exponente
+	12.3, 34.12E-3, 2., 3e3
+  Constantes carácter entre '',
+  Constantes carácter entre mediante codigo ASCII '\126'
+  Dos caracteres especiales '\n' y '\t'

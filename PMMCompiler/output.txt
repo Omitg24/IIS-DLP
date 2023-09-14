@@ -1,0 +1,163 @@
+
+#source	"examen1.txt"
+
+
+' Invocation to the main function
+call main
+halt
+
+
+#line	1
+
+ f:
+	' * Parameters
+	' * IntType a (offset 8)
+	' * RealType b (offset 4)
+	' * Local variables
+	enter	0
+
+#line	2
+	' * Return
+	push	bp
+	pushi	8
+	addi
+	loadi
+	i2f
+	pushi	1
+	i2f
+	addf
+	ret	4, 0, 6
+
+#line	5
+
+ main:
+	' * Parameters
+	' * Local variables
+	' * RealType real (offset -4)
+	' * IntType integer (offset -6)
+	enter	6
+
+#line	9
+	' * Assignment
+	push	bp
+	pushi	-6
+	addi
+	pushb	97
+	b2i
+	storei
+
+#line	10
+	' * Assignment
+	push	bp
+	pushi	-4
+	addi
+	push	bp
+	pushi	-6
+	addi
+	loadi
+	i2f
+	storef
+
+#line	12
+	' * Write
+	push	bp
+	pushi	-4
+	addi
+	loadf
+	f2i
+	pushi	1
+	addi
+	outi
+
+#line	12
+	' * Write
+	pushb	97
+	b2i
+	push	bp
+	pushi	-6
+	addi
+	loadi
+	subi
+	outi
+
+#line	12
+	' * Write
+	push	bp
+	pushi	-4
+	addi
+	loadf
+	f2i
+	pushb	97
+	b2i
+	divi
+	outi
+
+#line	12
+	' * Write
+	pushb	97
+	b2i
+	pushb	98
+	b2i
+	muli
+	outi
+
+#line	17
+	' * Write
+	pushb	97
+	b2i
+	pushb	97
+	b2i
+	eqi
+	outi
+
+#line	17
+	' * Write
+	pushb	97
+	b2i
+	push	bp
+	pushi	-6
+	addi
+	loadi
+	gei
+	outi
+
+#line	17
+	' * Write
+	push	bp
+	pushi	-6
+	addi
+	loadi
+	push	bp
+	pushi	-4
+	addi
+	loadf
+	f2i
+	lti
+	outi
+
+#line	17
+	' * Write
+	pushb	97
+	b2i
+	push	bp
+	pushi	-4
+	addi
+	loadf
+	f2i
+	pushi	1
+	addi
+	nei
+	outi
+
+#line	22
+	' * Write
+	push	bp
+	pushi	-6
+	addi
+	loadi
+	pushb	99
+	b2i
+	i2f
+	call	f
+	outf
+	ret	0, 6, 0

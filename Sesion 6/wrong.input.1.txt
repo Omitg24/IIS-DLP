@@ -1,0 +1,10 @@
+i, i:int; # Error: duplicated variable
+
+
+a: int;
+a: int;
+
+# Main program
+def main(): {
+	i = 0;
+}

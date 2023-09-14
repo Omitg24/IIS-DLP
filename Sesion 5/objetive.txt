@@ -1,0 +1,5 @@
+1. Take the existing AST implementation (lab 02)
+2. Take the language recognizer (lab 04)
+3. Adding embedded code to your ANTLR grammar, implement the language parser to create the AST
+4. Check its correctness by using Introspector
+

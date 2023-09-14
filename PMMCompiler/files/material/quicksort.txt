@@ -1,0 +1,103 @@
+array:[10]int;
+
+#TO GENERATE RANDOM VALUES
+
+rng: int;
+
+def abs(n: int): int {
+    if n > 0: return n;
+    return -n;
+}
+
+def seed(n: int): {
+    rng = n;
+}
+
+def rand(): int {
+    a, c, m: int;
+    m = 7793; a = 1234; c = 997;
+
+    rng = (a * rng + c) % m;
+    rng = abs(rng);
+    return rng;
+}
+
+
+#QUICKSORT IMPLEMENTATION
+
+def partition(left:int,right:int):int{
+
+    # Last element will be the pivot and the first element the pointer
+    pivot:int;
+    ptr:int;
+    i:int;
+    aux:int;
+
+    pivot = array[right];
+    ptr=left;
+    i=left;
+
+    while i<right : {
+        if array[i] <= pivot : {
+             # Swapping values smaller than the pivot to the front
+            aux = array[i];
+            array[i] = array[ptr];
+            array[ptr] = aux;
+            ptr = ptr + 1;
+        }
+        i = 1+i;
+    }
+
+    # Finally swappping the last element with the pointer indexed number
+    aux=array[ptr];
+    array[ptr] = array[right];
+    array[right] = aux;
+
+    return ptr;
+}
+
+def quickSort(left:int, right:int):{
+    pi:int;
+
+    if(left < right):{
+        pi = partition(left,right);
+        quickSort(left, pi-1); # Recursively sorting the left values
+        quickSort(pi+1,right); # Recursively sorting the right values
+    }
+
+}
+
+def main():{
+
+    seedN : int;
+    i : int;
+
+    input seedN;
+    seed(seedN);
+
+    print 'U','N','O','R','D','E','R','E','D',':','[';
+    i = 0;
+    while i < 10 : {
+        array[i] = rand();
+        print array[i],',';
+        i = i+1;
+    }
+    print ']','\n';
+
+
+   quickSort(0,9);
+
+   print 'O','R','D','E','R','E','D',':','[';
+
+   i = 0;
+   while i < 10 : {
+
+    print array[i] , ',';
+
+    i = i+1;
+   }
+
+   print ']';
+
+
+}

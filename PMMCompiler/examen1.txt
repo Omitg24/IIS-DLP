@@ -1,0 +1,23 @@
+def f(a: int, b: double): double {
+    return a + 1;
+}
+
+def main(): {
+    real: double;
+    integer: int;
+
+    integer = 'a';              # ASCII('a') = 97
+    real = integer;
+
+    print real + 1,             # muestra 98.0
+          'a' - integer,        # muestra 0
+          real / 'a',           # muestra 1.0
+          'a' * 'b';            # muestra 9506
+
+    print 'a' == 'a',           # muestra 1
+          'a' >= integer,       # muestra 1
+          integer < real,       # muestra 0
+          'a' != real + 1;      # muestra 1
+
+    print f(integer, 'c');      # muestra 98.0
+}

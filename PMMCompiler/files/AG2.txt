@@ -1,0 +1,38 @@
+GAR:
+    G:
+        (1): VariableDefinition: definition -> ID type
+        (2): FunctionDefinition: definition -> ID variableDefinition* statement* type
+        (3): FunctionType: type -> variableDefinition* type
+        (4): StructType: type -> structfield*
+        (5): StructField: structfield -> ID type
+
+    A:
+        { variableDefinition.offset, structField.offset } Dominio Int
+
+    R:
+        (1): VariableDefinition:
+                                    // int totalLocalVarDefSizes;
+                                    if (definition.scope == 0) {
+                                        variableDefinition.offset = type.numberOfBytes();
+                                    } else {
+                                        totalLocalVarDefSizes -= type.numberOfBytes();
+                                        variableDefinition.offset = totalLocalVarDefSizes;
+                                    }
+        (2): FunctionDefinition:
+                                    totalLocalVarDefSizes = 0;
+                                    // int totalOffset = 0;
+                                    // for (VariableDefinition varDef : variableDefinitions) {
+                                        // totalOffset -= varDef.type.numberOfBytes();
+                                        // varDef.offset = totalOffset;
+                                    // }
+        (3): FunctionType:
+                            int totalOffset = 4;
+                            for (int i = variableDefinitions.size() - 1; i >= 0; i--) {
+                                variableDefinitions.get(i).offset = totalOffset;
+                                totalOffset += variableDefinitions.get(i).getType().numberOfBytes();
+                            }
+        (4): StructType:
+                            int totalFieldSize = 0;
+                            for (StructField sf : structFields) {
+                                sf.offset = totalFieldSize += sf.type.numberOfBytes();
+                            }

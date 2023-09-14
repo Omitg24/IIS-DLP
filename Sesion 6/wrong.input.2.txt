@@ -1,0 +1,10 @@
+tuple: struct { 
+	key:int;	
+	value:int;	
+	key:double; # Error: duplicated field
+};
+
+# Main program
+def main(): {
+	tuple.key = 0;
+}

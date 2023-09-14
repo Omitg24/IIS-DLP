@@ -1,0 +1,746 @@
+
+#source	"big.input.txt"
+
+	' * StructType[fields:[Field[name:integer,type:IntType offset:0], Field[name:character,type:CharType offset:2]]] pair (offset 0)
+	' * ArrayType[of:StructType[fields:[Field[name:employees,type:ArrayType[of:StructType[fields:[Field[name:age,type:IntType offset:0]]],size:2] offset:0]]],size:2] acme (offset 3)
+	' * ArrayType[of:ArrayType[of:IntType,size:3],size:8] fibonacci (offset 11)
+
+' Invocation to the main function
+call main
+halt
+
+
+#line	14
+
+ p:
+	' * Parameters
+	' * Local variables
+	enter	0
+	ret	0, 0, 0
+
+#line	16
+
+ f:
+	' * Parameters
+	' * RealType r (offset 6)
+	' * IntType e (offset 4)
+	' * Local variables
+	' * RealType real (offset -4)
+	' * CharType c (offset -5)
+	' * IntType result (offset -7)
+	enter	7
+
+#line	20
+	' * Assignment
+	push	bp
+	pushi	-4
+	addi
+	push	bp
+	pushi	6
+	addi
+	loadf
+	pushf	10.0
+	mulf
+	storef
+
+#line	21
+	' * Assignment
+	push	bp
+	pushi	-5
+	addi
+	pushb	48
+	storeb
+
+#line	22
+	' * If
+
+#line	22
+	push	bp
+	pushi	4
+	addi
+	loadi
+	pushi	256
+	lti
+	jz	label0
+	' * if body
+
+#line	23
+	' * Assignment
+	push	bp
+	pushi	-5
+	addi
+	push	bp
+	pushi	4
+	addi
+	loadi
+	i2b
+	storeb
+
+#line	24
+	' * Assignment
+	push	bp
+	pushi	-7
+	addi
+	push	bp
+	pushi	-5
+	addi
+	loadb
+	b2i
+	storei
+	jmp	label1
+ label0:
+	' * else body
+
+#line	27
+	' * Assignment
+	push	bp
+	pushi	-7
+	addi
+	push	bp
+	pushi	-4
+	addi
+	loadf
+	f2i
+	storei
+ label1:
+
+#line	28
+	' * Return
+	push	bp
+	pushi	-7
+	addi
+	loadi
+	ret	2, 7, 6
+
+#line	31
+
+ initialize:
+	' * Parameters
+	' * Local variables
+	' * IntType i (offset -2)
+	enter	2
+
+#line	33
+	' * Assignment
+	pusha	11
+	pushi	0
+	pushi	6
+	muli
+	addi
+	pushi	0
+	pushi	2
+	muli
+	addi
+	pushi	0
+	storei
+
+#line	34
+	' * Assignment
+	pusha	11
+	pushi	0
+	pushi	6
+	muli
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	pushi	1
+	storei
+
+#line	35
+	' * Assignment
+	pusha	11
+	pushi	0
+	pushi	6
+	muli
+	addi
+	pushi	2
+	pushi	2
+	muli
+	addi
+	pushi	1
+	storei
+
+#line	36
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	pushi	1
+	storei
+
+#line	37
+	' * While
+
+#line	37
+ label2:
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	8
+	lti
+	jz	label3
+	' * While body
+
+#line	38
+	' * Assignment
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	0
+	pushi	2
+	muli
+	addi
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	subi
+	pushi	6
+	muli
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	loadi
+	storei
+
+#line	39
+	' * Assignment
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	subi
+	pushi	6
+	muli
+	addi
+	pushi	2
+	pushi	2
+	muli
+	addi
+	loadi
+	storei
+
+#line	40
+	' * Assignment
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	2
+	pushi	2
+	muli
+	addi
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	0
+	pushi	2
+	muli
+	addi
+	loadi
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	loadi
+	addi
+	storei
+
+#line	41
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp	label2
+ label3:
+	ret	0, 2, 0
+
+#line	47
+
+ main:
+	' * Parameters
+	' * Local variables
+	' * IntType i (offset -2)
+	' * IntType j (offset -4)
+	enter	4
+
+#line	49
+	call	p
+
+#line	50
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	pushi	0
+	storei
+
+#line	51
+	' * Assignment
+	pusha	0
+	pushi	2
+	addi
+	pushb	48
+	storeb
+
+#line	52
+	' * Assignment
+	pusha	0
+	pushi	0
+	addi
+	pushb	48
+	b2i
+	storei
+
+#line	55
+	' * Write
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	i2f
+	pusha	0
+	pushi	2
+	addi
+	loadb
+	b2i
+	call	f
+	outi
+
+#line	55
+	' * Write
+	pushb	10
+	outb
+
+#line	56
+	pushf	1.3
+	pushi	2
+	call	f
+	popi
+
+#line	58
+	call	initialize
+
+#line	59
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	pushi	0
+	storei
+
+#line	60
+	' * While
+
+#line	60
+ label4:
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	8
+	lti
+	jz	label5
+	' * While body
+
+#line	62
+	' * Write
+	pushb	40
+	outb
+
+#line	62
+	' * Write
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	outi
+
+#line	62
+	' * Write
+	pushb	41
+	outb
+
+#line	62
+	' * Write
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	0
+	pushi	2
+	muli
+	addi
+	loadi
+	outi
+
+#line	62
+	' * Write
+	pushb	43
+	outb
+
+#line	62
+	' * Write
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	loadi
+	outi
+
+#line	62
+	' * Write
+	pushb	61
+	outb
+
+#line	62
+	' * Write
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	2
+	pushi	2
+	muli
+	addi
+	loadi
+	outi
+
+#line	62
+	' * Write
+	pushb	10
+	outb
+
+#line	65
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp	label4
+ label5:
+
+#line	68
+	' * Assignment
+	pusha	3
+	pushi	1
+	pushi	4
+	muli
+	addi
+	pushi	0
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	pushi	0
+	addi
+	pushi	56
+	storei
+
+#line	70
+	' * Write
+	pusha	3
+	pushi	1
+	pushi	4
+	muli
+	addi
+	pushi	0
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	pushi	0
+	addi
+	loadi
+	outi
+
+#line	70
+	' * Write
+	pushb	10
+	outb
+
+#line	71
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	pushi	0
+	storei
+
+#line	72
+	' * While
+
+#line	72
+ label6:
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	2
+	lti
+	jz	label7
+	' * While body
+
+#line	73
+	' * Assignment
+	push	bp
+	pushi	-4
+	addi
+	pushi	0
+	storei
+
+#line	74
+	' * While
+
+#line	74
+ label8:
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	2
+	lti
+	jz	label9
+	' * While body
+
+#line	75
+	' * Assignment
+	pusha	3
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	4
+	muli
+	addi
+	pushi	0
+	addi
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	2
+	muli
+	addi
+	pushi	0
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	addi
+	storei
+
+#line	76
+	' * Assignment
+	push	bp
+	pushi	-4
+	addi
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp	label8
+ label9:
+
+#line	78
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp	label6
+ label7:
+
+#line	81
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	pushi	0
+	storei
+
+#line	82
+	' * While
+
+#line	82
+ label10:
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	2
+	lti
+	jz	label11
+	' * While body
+
+#line	83
+	' * Assignment
+	push	bp
+	pushi	-4
+	addi
+	pushi	0
+	storei
+
+#line	84
+	' * While
+
+#line	84
+ label12:
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	2
+	lti
+	jz	label13
+	' * While body
+
+#line	86
+	' * Write
+	pusha	3
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	4
+	muli
+	addi
+	pushi	0
+	addi
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	2
+	muli
+	addi
+	pushi	0
+	addi
+	loadi
+	outi
+
+#line	86
+	' * Write
+	pushb	32
+	outb
+
+#line	87
+	' * Assignment
+	push	bp
+	pushi	-4
+	addi
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp	label12
+ label13:
+
+#line	89
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp	label10
+ label11:
+	ret	0, 4, 0

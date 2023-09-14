@@ -1,0 +1,37 @@
+
+#source	"inputGonzalo.txt"
+
+	' * StructType[fields:[Field[name:b,type:StructType[fields:[Field[name:c,type:IntType offset:0]]] offset:0]]] a (offset 0)
+
+' Invocation to the main function
+call main
+halt
+
+
+#line	7
+
+ main:
+	' * Parameters
+	' * Local variables
+	enter	0
+
+#line	8
+	' * Assignment
+	pusha	0
+	pushi	0
+	addi
+	pushi	0
+	addi
+	pushi	3
+	storei
+
+#line	9
+	' * Write
+	pusha	0
+	pushi	0
+	addi
+	pushi	0
+	addi
+	loadi
+	outi
+	ret	0, 0, 0
